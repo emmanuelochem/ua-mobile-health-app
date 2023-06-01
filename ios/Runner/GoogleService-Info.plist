@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>805209848113-93vok7n98paqa5leca8i01sulk1g7lg4.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.805209848113-93vok7n98paqa5leca8i01sulk1g7lg4</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAtgFgQlAUKDCIm_x7fEPj3yrmgOH00TaA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>805209848113</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>health.ua.uaMobileHealth</string>
+	<key>PROJECT_ID</key>
+	<string>ua-mobile-health</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ua-mobile-health.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:805209848113:ios:a5f21775030935e0395810</string>
+</dict>
+</plist>

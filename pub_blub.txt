@@ -1,0 +1,63 @@
+name: ua_mobile_health
+description: A new Flutter project.
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.7.0 <3.0.0'
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  dio: ^4.0.0
+  flushbar: ^1.10.4
+  flutter:
+    sdk: flutter
+  flutter_phosphor_icons: ^0.0.1+6
+  flutter_screenutil: ^5.7.0
+  flutter_secure_storage: ^8.0.0
+  flutter_svg: ^2.0.4
+  google_nav_bar: ^5.0.6
+  http: ^0.13.5
+  iconly: ^1.0.1
+  iconsax: ^0.0.8
+  intl: ^0.18.0
+  logger: ^1.1.0
+  lottie: ^2.3.2
+  provider: ^6.0.5
+  recase: ^4.1.0
+  table_calendar: ^3.0.9
+  speech_to_text: ^6.1.1
+  flutter_tts: ^3.6.3
+  animate_do: ^3.0.2
+  uuid: ^3.0.7
+  flutter_webrtc_wrapper: ^1.0.2
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/brands/
+    - assets/icons/
+    - assets/lottie/
+
+  fonts:
+    - family: CW BR Firma
+      fonts:
+        - asset: assets/fonts/brfirma/BRFirmaCW-Light.ttf
+          weight: 200
+        - asset: assets/fonts/brfirma/BRFirmaCW-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/brfirma/BRFirmaCW-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/brfirma/BRFirmaCW-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/brfirma/BRFirmaCW-Bold.ttf
+          weight: 700
