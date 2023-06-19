@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ua_mobile_health/core/ui/typography_style.dart';
 import 'package:ua_mobile_health/core/ui/ui_colors.dart';
 
 class EmptyDataNotice extends StatelessWidget {
@@ -28,7 +29,8 @@ class EmptyDataNotice extends StatelessWidget {
               ),
               Text(message,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20.sp, color: UIColors.primary100))
+                  style: TypographyStyle.bodySmall
+                      .copyWith(fontSize: 20.sp, color: UIColors.primary100))
             ],
           ),
         ),

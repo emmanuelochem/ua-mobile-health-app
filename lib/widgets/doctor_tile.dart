@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ua_mobile_health/core/ui/typography_style.dart';
 import 'package:ua_mobile_health/core/ui/ui_colors.dart';
-import 'package:ua_mobile_health/doctors_routes.dart';
+import 'package:ua_mobile_health/routes.dart';
 
 class DoctorTile extends StatelessWidget {
   const DoctorTile({Key key, @required this.doctor}) : super(key: key);
@@ -14,7 +14,7 @@ class DoctorTile extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(
           context,
-          DoctorsRoutes.docDetails,
+          Routes.docDetails,
           arguments: <String, dynamic>{'id': doctor['_id']},
         );
       },

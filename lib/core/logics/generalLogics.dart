@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:ua_mobile_health/core/providers/doctor_data_provider.dart';
 import 'package:ua_mobile_health/core/providers/studentsDataProvider.dart';
 import 'package:ua_mobile_health/core/ui/ui_colors.dart';
-import 'package:ua_mobile_health/doctors_routes.dart';
+import 'package:ua_mobile_health/routes.dart';
 import 'package:ua_mobile_health/widgets/action_button.dart';
 import 'package:ua_mobile_health/widgets/notice_dialog.dart';
 import 'package:ua_mobile_health/widgets/snack_bar.dart';
@@ -35,7 +35,7 @@ class GeneralLogics {
       {BuildContext context, bool isStudent = false}) async {
     GeneralLogics.removeUserData().then((value) {
       Navigator.of(context).pushNamedAndRemoveUntil(
-          isStudent ? DoctorsRoutes.login : DoctorsRoutes.login,
+          isStudent ? Routes.login : Routes.login,
           (Route<dynamic> route) => false);
     });
   }

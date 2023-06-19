@@ -13,9 +13,9 @@ class FlushBar {
       {BuildContext context, String message, FlushbarType type}) {
     return Flushbar(
       backgroundColor: type == FlushbarType.success
-          ? UIColors.secondary400
+          ? UIColors.primary500
           : type == FlushbarType.error
-              ? UIColors.primary500
+              ? Colors.red[100]
               : type == FlushbarType.hint
                   ? Colors.blue[400]
                   : Colors.yellow[400],
@@ -26,9 +26,9 @@ class FlushBar {
       flushbarPosition: FlushbarPosition.TOP,
       duration: const Duration(seconds: 5),
       borderColor: type == FlushbarType.success
-          ? UIColors.secondary300
+          ? UIColors.primary200
           : type == FlushbarType.error
-              ? UIColors.primary300
+              ? Colors.red[300]
               : type == FlushbarType.hint
                   ? Colors.blue[300]
                   : Colors.yellow[300],
@@ -39,9 +39,9 @@ class FlushBar {
         style: TypographyStyle.bodySmall.copyWith(
           fontWeight: FontWeight.w600,
           color: type == FlushbarType.success
-              ? UIColors.secondary100
+              ? UIColors.primary
               : type == FlushbarType.error
-                  ? UIColors.primary100
+                  ? Colors.red
                   : type == FlushbarType.hint
                       ? Colors.blue[100]
                       : Colors.yellow[100],
@@ -59,9 +59,9 @@ class FlushBar {
                       ? PhosphorIcons.x
                       : PhosphorIcons.info,
           color: type == FlushbarType.success
-              ? UIColors.secondary100
+              ? UIColors.primary
               : type == FlushbarType.error
-                  ? UIColors.primary100
+                  ? Colors.red
                   : type == FlushbarType.hint
                       ? Colors.blue[100]
                       : Colors.yellow[100],

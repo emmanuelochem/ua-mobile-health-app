@@ -13,30 +13,35 @@ dependencies:
   animate_do: ^3.0.2
   cupertino_icons: ^1.0.2
   dio: ^4.0.0
+  eventify: ^1.0.1
   flushbar: ^1.10.4
   flutter:
     sdk: flutter
   flutter_phosphor_icons: ^0.0.1+6
+  flutter_rating_stars: ^1.0.3+4
   flutter_screenutil: ^5.7.0
   flutter_secure_storage: ^8.0.0
   flutter_svg: ^2.0.4
   flutter_tts: ^3.6.3
-  flutter_webrtc_wrapper: ^1.0.2
+  flutter_webrtc: ^0.9.32
   google_nav_bar: ^5.0.6
   http: ^0.13.5
   iconly: ^1.0.1
   iconsax: ^0.0.8
+  image_picker: ^0.8.7+5
   intl: ^0.18.0
   logger: ^1.1.0
   lottie: ^2.3.2
   modal_bottom_sheet: 3.0.0-pre
+  path: ^1.8.0
   provider: ^6.0.5
   recase: ^4.1.0
+  smooth_star_rating: ^1.1.1
+  socket_io_client: ^1.0.2
   speech_to_text: ^6.1.1
+  string_to_hex: ^0.2.2
   table_calendar: ^3.0.9
   uuid: ^3.0.7
-  image_picker: ^0.8.7+5
-  path: ^1.8.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -64,3 +69,6 @@ flutter:
           weight: 600
         - asset: assets/fonts/brfirma/BRFirmaCW-Bold.ttf
           weight: 700
+    - family: Adieu
+      fonts:
+        - asset: assets/fonts/adieu/Adieu-Regular.ttf
