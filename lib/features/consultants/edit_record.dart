@@ -1,45 +1,81 @@
+import 'dart:developer';
+
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:ua_mobile_health/core/ui/typography_style.dart';
 import 'package:ua_mobile_health/core/ui/ui_colors.dart';
 import 'package:ua_mobile_health/features/consultants/records_tab.dart';
+import 'package:ua_mobile_health/features/users/user_api.dart';
 
 class EditRecord extends StatefulWidget {
-  const EditRecord({Key key, this.product}) : super(key: key);
+  const EditRecord({Key key, this.record}) : super(key: key);
 
-  final Product product;
+  final Map record;
 
   @override
   _EditRecordState createState() => _EditRecordState();
 }
 
 class _EditRecordState extends State<EditRecord> {
-  Color pageColor = Colors.white;
+  RecordColor pageColor;
 
   final title = TextEditingController();
-  final desc = TextEditingController();
-
+  final body = TextEditingController();
+  DateTime selectedDate = DateTime.now();
   @override
   void initState() {
     super.initState();
-    title.text = widget.product.title;
-    desc.text = widget.product.desc;
-    pageColor = widget.product.color;
+    title.text = widget.record['title'];
+    body.text = widget.record['body'];
+    var prod = products.firstWhere((element) => element.id == '2');
+    pageColor = prod;
+  }
+
+  bool _reviewLoading = false;
+  Future updateRecords() async {
+    setState(() {
+      _reviewLoading = true;
+    });
+    String userId = widget.record['_id'];
+    Map<String, dynamic> data = {
+      'date': DateFormat('y-MM-dd').format(selectedDate),
+      'colorId': pageColor.id,
+      'title': title.text,
+      'body': body.text,
+    };
+    UserApi userApi = UserApi();
+    var res = await userApi
+        .updateRecord(context: context, recordId: userId, data: data)
+        .then((value) {
+      if (value != null) {
+        //  Navigator.pop(context);
+        log(value.toString());
+        setState(() {
+          _reviewLoading = false;
+        });
+        return value['data'];
+      } else {
+        return null;
+      }
+    });
+    return res;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: pageColor,
+      backgroundColor: pageColor.color,
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        backgroundColor: pageColor,
+        backgroundColor: pageColor.color,
         elevation: 0,
         centerTitle: true,
         title: Text(
-          'New Record',
+          'Update Record',
           style: TypographyStyle.heading5.copyWith(
             fontSize: 18.sp,
             color: UIColors.secondary,
@@ -85,8 +121,23 @@ class _EditRecordState extends State<EditRecord> {
                 )),
             child: IconButton(
               padding: EdgeInsets.zero,
-              onPressed: () {
-                Navigator.of(context).pop();
+              onPressed: () async {
+                List<DateTime> results = await showCalendarDatePicker2Dialog(
+                    context: context,
+                    config: CalendarDatePicker2WithActionButtonsConfig(
+                      selectedDayHighlightColor: UIColors.primary,
+                      //firstDate: DateTime.now().add(Duration(days: widget.firstDaysCount)),
+                      lastDate: DateTime.now().add(const Duration(days: 365)),
+                    ),
+                    dialogSize: const Size(325, 400),
+                    borderRadius: BorderRadius.circular(15));
+                if (results != null) {
+                  setState(() {
+                    selectedDate = results.first;
+                  });
+
+                  // DateFormat('dd/MM/yyyy').format(results.first).toString());
+                }
               },
               icon: const Icon(PhosphorIcons.calendar),
               iconSize: 0.02.sh,
@@ -105,13 +156,17 @@ class _EditRecordState extends State<EditRecord> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: List.generate(
-                  products.length, (index) => colorSelection(index)),
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: List.generate(
+                    products.length, (index) => colorSelection(index)),
+              ),
             ),
             GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
+              onTap: () async {
+                await updateRecords();
               },
               child: Container(
                 padding: EdgeInsets.symmetric(
@@ -120,14 +175,20 @@ class _EditRecordState extends State<EditRecord> {
                   color: UIColors.primary,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Text(
-                  'Save',
-                  style: TypographyStyle.bodySmall.copyWith(
-                    fontSize: 17.sp,
-                    color: UIColors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: _reviewLoading
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: UIColors.white,
+                        ),
+                      )
+                    : Text(
+                        'Save',
+                        style: TypographyStyle.bodySmall.copyWith(
+                          fontSize: 17.sp,
+                          color: UIColors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
               ),
             )
           ],
@@ -155,10 +216,10 @@ class _EditRecordState extends State<EditRecord> {
             ),
 
             TextFormField(
-              controller: desc,
+              controller: body,
               style: const TextStyle(fontSize: 16, color: Colors.black),
               decoration: const InputDecoration(
-                hintText: "Enter description",
+                hintText: "Enter medical record",
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide.none,
                 ),
@@ -179,15 +240,32 @@ class _EditRecordState extends State<EditRecord> {
       child: InkWell(
         onTap: () {
           setState(() {
-            pageColor = products[index].color;
+            pageColor = products[index];
           });
         },
-        child: Container(
-          height: 43,
-          width: 43,
-          decoration: BoxDecoration(
-              color: products[index].color,
-              borderRadius: BorderRadius.circular(10.0)),
+        child: Stack(
+          children: [
+            Container(
+              height: 43,
+              width: 43,
+              decoration: BoxDecoration(
+                  color: products[index].color,
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(width: 1, color: UIColors.secondary200)),
+            ),
+            pageColor == products[index]
+                ? Positioned(
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Icon(
+                      PhosphorIcons.check,
+                      size: 0.03.sh,
+                    ),
+                  )
+                : const SizedBox.shrink()
+          ],
         ),
       ),
     );

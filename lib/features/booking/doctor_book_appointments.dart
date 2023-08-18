@@ -212,8 +212,7 @@ class _BookingPageState extends State<DoctorBookingPage> {
                                               color: bookedTime.contains(
                                                       cleanupTime((index + 9)
                                                           .toString()))
-                                                  ? UIColors.primary200
-                                                      .withOpacity(.6)
+                                                  ? Colors.red.withOpacity(.7)
                                                   : _currentIndex == index
                                                       ? UIColors.primary
                                                       : UIColors.secondary600,

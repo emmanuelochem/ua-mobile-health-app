@@ -113,6 +113,30 @@ class _DoctorsInfoState extends State<PatientsDetails>
     return res;
   }
 
+  final bool _recordsLoading = false;
+  List records = [];
+  Future getRecords() async {
+    setState(() {
+      _reviewLoading = true;
+    });
+    String userId = userData['_id'];
+    UserApi userApi = UserApi();
+    var res = await userApi
+        .getRecords(context: context, studentId: userId)
+        .then((value) {
+      if (value != null) {
+        setState(() {
+          _reviewLoading = false;
+          records = value['data'];
+        });
+        return value['data'];
+      } else {
+        return null;
+      }
+    });
+    return res;
+  }
+
   DoctorDataProvider doctorDataProvider;
   int activeTab = 0;
   @override
@@ -298,7 +322,7 @@ class _DoctorsInfoState extends State<PatientsDetails>
                                   indicatorWeight: 2,
                                   onTap: (value) {
                                     if (value == 1) {
-                                      getReviews();
+                                      getRecords();
                                     }
                                     setState(() {
                                       activeTab = value;
@@ -359,7 +383,7 @@ class _DoctorsInfoState extends State<PatientsDetails>
                                 ),
                                 Visibility(
                                     visible: activeTab == 1,
-                                    child: _reviewLoading
+                                    child: _recordsLoading
                                         ? SizedBox(
                                             height: 0.5.sh,
                                             child: Center(
@@ -384,7 +408,7 @@ class _DoctorsInfoState extends State<PatientsDetails>
                                                                   //     userData['_id'],
                                                                   ))).then(
                                                       (value) async {
-                                                    await getReviews();
+                                                    await getRecords();
                                                   });
                                                 },
                                                 text: 'Add Record',
@@ -447,7 +471,9 @@ class _DoctorsInfoState extends State<PatientsDetails>
                                                         )
                                                       ],
                                                     )
-                                                  : const Listdata(),
+                                                  : Listdata(
+                                                      records: records,
+                                                    ),
                                             ],
                                           )),
                               ],

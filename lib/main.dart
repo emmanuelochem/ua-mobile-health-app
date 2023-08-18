@@ -34,10 +34,7 @@ class DoctorAppMain extends StatelessWidget {
         builder: (ctx, _) {
           return MaterialApp(
             title: 'UA Mobile Health',
-            theme: ThemeData(
-                // primarySwatch: UIColors.primary,
-                ),
-            //home: const WelcomePage(),
+            theme: ThemeData(),
             onGenerateRoute: Routes.generateRoute,
             initialRoute: Routes.splash,
             debugShowCheckedModeBanner: false,

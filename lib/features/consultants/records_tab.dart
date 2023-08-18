@@ -1,42 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ua_mobile_health/core/ui/typography_style.dart';
 import 'package:ua_mobile_health/features/consultants/edit_record.dart';
 
-class Product {
-  final String title, desc;
-  final Color color;
-  Product({
-    @required this.title,
-    @required this.desc,
-    @required this.color,
-  });
-}
-
-List<Product> products = [
-  Product(
-    title: "Malaria",
-    color: const Color(0xFF71B8FF),
-    desc:
-        "He made complains of malaria. And the necessary precsriptions were administered.",
-  ),
-  Product(
-    title: "Typhoid Fever",
-    color: const Color(0xFFff6374),
-    desc:
-        "He made complains of typhoid. And the necessary precsriptions were administered.",
-  ),
-  Product(
-    title: "Toothache",
-    color: const Color.fromRGBO(255, 170, 91, 1),
-    desc:
-        "He made complains of tooth ache. And the necessary precsriptions were administered.",
-  ),
-];
-
 class Listdata extends StatelessWidget {
-  const Listdata({
-    Key key,
-  }) : super(key: key);
+  const Listdata({Key key, @required this.records}) : super(key: key);
 
+  final List records;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -44,20 +13,20 @@ class Listdata extends StatelessWidget {
       child: GridView.builder(
           shrinkWrap: true,
           physics: const ScrollPhysics(),
-          itemCount: products.length,
+          itemCount: records.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 10.0,
             mainAxisSpacing: 10.0,
           ),
           itemBuilder: (context, index) => ListCard(
-                product: products[index],
+                product: records[index],
                 press: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => EditRecord(
-                                product: products[index],
+                                record: records[index],
                               )));
                 },
               )),
@@ -71,39 +40,45 @@ class ListCard extends StatelessWidget {
     @required this.product,
     @required this.press,
   }) : super(key: key);
-  final Product product;
+  final Map product;
   final VoidCallback press;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: press,
       child: Container(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: product.color,
+          color: Colors.amber,
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              product.title,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 19,
-              ),
+              product['title'],
+              style: TypographyStyle.bodyMediumn.copyWith(
+                  fontWeight: FontWeight.w600, fontSize: 19, height: 0),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              '11th April, 23',
+              style: TypographyStyle.bodyMediumn.copyWith(
+                  fontWeight: FontWeight.w500, fontSize: 14, height: 0),
             ),
             const SizedBox(
               height: 10,
             ),
             Text(
-              product.desc,
+              product['body'],
               maxLines: 5,
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.black54,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TypographyStyle.bodyMediumn.copyWith(
+                  fontSize: 13,
+                  color: Colors.black54,
+                  fontWeight: FontWeight.w600,
+                  height: 0),
             ),
           ],
         ),
@@ -111,3 +86,31 @@ class ListCard extends StatelessWidget {
     );
   }
 }
+
+class RecordColor {
+  final String id;
+  final Color color;
+  RecordColor({
+    @required this.id,
+    @required this.color,
+  });
+}
+
+List<RecordColor> products = [
+  RecordColor(
+    id: '1',
+    color: const Color(0xFFFFFFFF),
+  ),
+  RecordColor(
+    id: '2',
+    color: const Color(0xFF71B8FF),
+  ),
+  RecordColor(
+    id: '3',
+    color: const Color(0xFFff6374),
+  ),
+  RecordColor(
+    id: '4',
+    color: const Color.fromRGBO(255, 170, 91, 1),
+  ),
+];
